@@ -17,50 +17,37 @@ const request = require('request'); // require the request package
 //routes
 app.get("/", async function(req, res){
     
- let parsedData = await getImages();
+ let parsedData = await getImages("otters");
  
  console.dir("parsedData: " + parsedData); //displays content of the object
     
  res.render("index", {"image":parsedData.hits[0].largeImageURL});
-        
+
+
+         
+         
 }); //root route
 
 
-app.get("/results", function(req, res){ // request and respond param. 
+app.get("/results", async function(req, res){ // request and respond param. 
+   // console.dir(req); all info in terminal 
+    let keyword = req.query.keyword; // get the values that the user typed in forms(GET METHOD)
+    let parsedData = await getImages(keyword);
     
-    let parsedData = ""; // intializing paraedData before request as an empty string. 
- 
- request('https://pixabay.com/api/?key=5589438-47a0bca778bf23fc2e8c5bf3e',
-             function (error, response, body) {
+    res.render("results", {"images":parsedData});
 
-        if (!error && response.statusCode == 200  ) { //no issues in the request
-            
-             parsedData = JSON.parse(body); // assigning parsed data to  converts string to JSON
-            
-            let randomIndex = Math.floor(Math.random() * parsedData.hits.length);
-            //res.send(`<img src='${parsedData.hits[randomIndex].largeImageURL}'>`);
-            res.render("results", {"images":parsedData}); // using response object to render this view under this condition
-         
-            
-        } else {
-            console.log(response.statusCode);
-            console.log(error);
-        }
-
-   });//request
     
-    
-    //res.render("results");
-    
+  
+  
 });//results route
 
 
 //Returns all data from the Pixabay API as JSON format
-function getImages(){
-    
+function getImages(keyword){
+ 
     
     return new Promise( function(resolve, reject){
-        request('https://pixabay.com/api/?key=5589438-47a0bca778bf23fc2e8c5bf3e',
+        request('https://pixabay.com/api/?key=5589438-47a0bca778bf23fc2e8c5bf3e&q='+keyword,
                  function (error, response, body) {
     
             if (!error && response.statusCode == 200  ) { //no issues in the request
@@ -84,11 +71,11 @@ function getImages(){
     });
     
 }
-  app.listen("8081","0.0.0.0",function(){
-  console.log("Express Server is running...");
-});
+ // app.listen("8081","0.0.0.0",function(){
+ // console.log("Express Server is running...");
+//});
 
 //starting server
-//app.listen(process.env.PORT, process.env.IP, function(){
-//    console.log("Express server is running...");
-//});
+app.listen(process.env.PORT, process.env.IP, function(){
+ console.log("Express server is running...");
+});
