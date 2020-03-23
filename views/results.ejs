@@ -15,18 +15,29 @@
             
            <strong> Keyword:</strong> <input type="text" name="keyword">
             <button> Search! </button>
+          <strong> <div><label>Orientation:</label> </strong> 
+        <select id="orientation", name="orientation">
+        <option value="horizontal">Horizontal</option>
+        <option value="vertical">Vertical</option>
+        </select>
             
         </form> <br>
         
-       
+    <div class="flex-container">
         
-        <img src='<%= images.hits[0].largeImageURL %>' width='250' height='250'>
-        <img src='<%= images.hits[1].largeImageURL %>' width='250'height='250'>
-        <img src='<%= images.hits[2].largeImageURL %>' width='250'height='250'>
-        <img src='<%= images.hits[3].largeImageURL %>' width='250'height='250'>
-       
+          <div class="frame">likes: <%= images.hits[0].likes %>
+    <img src='<%= images.hits[0].largeImageURL %>' width= '300'></div>
+    
+    <div class="frame">likes: <%= images.hits[1].likes %>
+        <img src='<%= images.hits[1].largeImageURL %>' width='300' ></div>
+    
+    <div class="frame">likes: <%= images.hits[0].likes %>
+        <img src='<%= images.hits[2].largeImageURL %>' width='300' ></div>
+    
+    <div class="frame">likes: <%= images.hits[0].likes %>
+        <img src='<%= images.hits[3].largeImageURL %>' width='300' ></div>
           
-          
+        </div>   
         
 
     </body>

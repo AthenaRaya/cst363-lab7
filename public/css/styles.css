@@ -7,3 +7,19 @@ h1{
 font-family: 'Wallpoet', cursive;
 text-decoration: underline;
 }
+/* The grid: Four equal columns that floats next to each other */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+ 
+  
+}
+
+.frame {
+  display: flex;
+  flex-direction: column;
+  
+  
+  border-radius: 30px;
+}

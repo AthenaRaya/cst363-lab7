@@ -3,7 +3,10 @@
     <head>
         <title> Pixabay Search (Express Version) </title>
     </head>
-  
+  <link href="https://fonts.googleapis.com/css?family=Wallpoet&display=swap" rel="stylesheet">
+   <style>
+            @import url("/css/styles.css");
+        </style>
     <body>
 
         <h1> Pixabay Search (Express Version) </h1>
@@ -12,11 +15,32 @@
             
             Keyword: <input type="text" name="keyword">
             <button> Search! </button>
+            <div><label>Orientation:</label>
+        <select id="orientation", name="orientation">
+        <option value="horizontal">Horizontal</option>
+        <option value="vertical">Vertical</option>
+        </select>
             
         </form> <br>
-        
-        <img src='<%=image%>' >
-        <div id= "likes"></div>
+         <div class="flex-container">
+    
+    
+    <div class="frame">likes: <%= images.hits[0].likes %>
+    <img src='<%= images.hits[0].largeImageURL %>' width='300' ></div>
+    
+    <div class="frame">likes: <%= images.hits[1].likes %>
+        <img src='<%= images.hits[1].largeImageURL %>' width='300' ></div>
+    
+    <div class="frame">likes: <%= images.hits[0].likes %>
+        <img src='<%= images.hits[2].largeImageURL %>' width='300' ></div>
+    
+    <div class="frame">likes: <%= images.hits[0].likes %>
+        <img src='<%= images.hits[3].largeImageURL %>' width='300'></div>
+
+
+    </div>
+       
+       
 
     </body>
 </html>

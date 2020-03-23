@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+
 app.set("view engine", "ejs");
+
 app.use(express.static("public")); //folder for images, css, js
  
 const request = require('request'); // require the request package 
@@ -17,11 +19,26 @@ const request = require('request'); // require the request package
 //routes
 app.get("/", async function(req, res){
     
- let parsedData = await getImages("otters");
- 
- console.dir("parsedData: " + parsedData); //displays content of the object
     
- res.render("index", {"image":parsedData.hits[0].largeImageURL});
+//   let parsedData = await getImages("otters");
+ 
+//   console.dir("parsedData: " + parsedData); //displays content of the object
+    
+//   res.render("index", {"defaultimg":parsedData.hits[0].largeImageURL});
+ 
+ 
+    var words = ["beach","bus","mountain","sunflowers","house"];
+
+    var ran= Math.floor(Math.random() * 6)
+    
+    //displays content of the object
+        
+    let rand = words[ran];
+    let orien = "horizontal";
+    let parsedData = await getImages(rand,orien);
+    
+    console.log("parsedData: " + parsedData);
+    res.render("index", {"images":parsedData});
 
 
          
@@ -31,8 +48,13 @@ app.get("/", async function(req, res){
 
 app.get("/results", async function(req, res){ // request and respond param. 
    // console.dir(req); all info in terminal 
+   
+   
+   
+   
     let keyword = req.query.keyword; // get the values that the user typed in forms(GET METHOD)
-    let parsedData = await getImages(keyword);
+    let orien = req.query.orientation; 
+    let parsedData = await getImages(keyword,orien);
     
     res.render("results", {"images":parsedData});
 
@@ -43,7 +65,7 @@ app.get("/results", async function(req, res){ // request and respond param.
 
 
 //Returns all data from the Pixabay API as JSON format
-function getImages(keyword){
+function getImages(keyword,orien){
  
     
     return new Promise( function(resolve, reject){
